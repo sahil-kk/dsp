@@ -3,6 +3,7 @@ import Plot from "react-plotly.js";
 import { create, all } from "mathjs";
 import { BackgroundBeams } from "../components/ui/BackgroundBeams";
 
+
 const math = create(all);
 
 math.import(
@@ -81,6 +82,7 @@ export default function DspVisualizer() {
         return tRange.map((t) => compiled.evaluate({ t }));
     };
 
+
     const plotSignal = () => {
         try {
             setX1(tRange);
@@ -133,7 +135,7 @@ export default function DspVisualizer() {
 
         const dynamicTickStep = (range) => {
             if (range <= 10) return 1;
-            if (range <= 20) return 2;
+            if (range <= 25) return 2;
             if (range <= 50) return 5;
             return 10;
         };
@@ -219,15 +221,15 @@ export default function DspVisualizer() {
 
                 {x1.length > 0 && y1.length > 0 && x2.length > 0 && y2.length > 0 && (
                     <div className="mt-10 w-full flex justify-center gap-8 flex-wrap">
-                        <Plot data={[{ x: x1, y: y1, type: "scatter", mode: "lines", line: { shape: "hv", color: "red", width: 4 } }]} layout={plotLayout("Signal 1", false, x1, y1, sharedYRange)} />
-                        <Plot data={[{ x: x2, y: y2, type: "scatter", mode: "lines", line: { shape: "hv", color: "green", width: 4 } }]} layout={plotLayout("Signal 2", false, x2, y2, sharedYRange)} />
+                        <Plot data={[{ x: x1, y: y1, type: "scatter", mode: "lines", line: { shape: "hv", color: "red", width: 4 } }]} layout={plotLayout("Signal 1", false, x1, y1, sharedYRange)} config={{ displayModeBar: false }} />
+                        <Plot data={[{ x: x2, y: y2, type: "scatter", mode: "lines", line: { shape: "hv", color: "green", width: 4 } }]} layout={plotLayout("Signal 2", false, x2, y2, sharedYRange)} config={{ displayModeBar: false }} />
                     </div>
                 )}
 
                 {xConv.length > 0 && yConv.length > 0 && (
                     <>
                         <div className="mt-12 w-full flex justify-center">
-                            <Plot data={[{ x: xConv, y: yConv, type: "scatter", mode: "lines", line: { color: "#66ccff", width: 4 } }]} layout={plotLayout("Result of Convolution", true, xConv, yConv)} />
+                            <Plot data={[{ x: xConv, y: yConv, type: "scatter", mode: "lines", line: { color: "#66ccff", width: 4 } }]} layout={plotLayout("Result of Convolution", true, xConv, yConv)} config={{ displayModeBar: false }} />
 
                         </div>
 
